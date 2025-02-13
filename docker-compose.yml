@@ -3,7 +3,7 @@ name: todoList
 services:
   api:
     container_name: api
-    image: todoList-api:latest
+    image: todolist-api:latest
     ports:
       - 3000:3000
 
