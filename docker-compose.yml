@@ -1,18 +1,12 @@
 name: todoList
 
 services:
-  api:
-    container_name: api
-    image: todolist-api:latest
-    ports:
-      - 3000:3000
-
   postgres:
-    container_name: postgres
+    container_name: postgres2
     image: postgres:latest
     ports:
       - 5432:5432
     environment:
       - POSTGRES_USER=cenk
-      - POSTGRESS_PASSWORD=luffy
+      - POSTGRES_PASSWORD=luffy
       - POSTGRES_DB=db
