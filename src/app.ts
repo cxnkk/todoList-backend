@@ -1,18 +1,24 @@
 import express from "express";
-import { list } from "./data";
+import postgres from "postgres";
+
+const sql = postgres("postgres://username:password@localhost:5432/db");
+
 const app = express();
 const port = 3000;
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send(list);
+app.get("/", async (req, res) => {
+  const toDos = await sql`select * from todos`;
+  res.send(toDos);
 });
 
-app.put("/newToDo", (req, res) => {
+app.put("/newToDo", async (req, res) => {
   const { toDoItem } = req.body;
 
-  list.push(toDoItem);
+  const list = await sql`
+  INSERT INTO todos
+  VALUES (${toDoItem})`;
 
   return res.sendStatus(200);
 });
