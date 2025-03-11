@@ -1,2 +1,5 @@
 CREATE TABLE
-    todos (id SERIAL PRIMARY KEY);
+    todos (
+        todo_id SERIAL PRIMARY KEY,
+        item VARCHAR(255) NOT NULL
+    );

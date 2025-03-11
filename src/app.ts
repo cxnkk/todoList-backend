@@ -1,7 +1,7 @@
 import express from "express";
 import postgres from "postgres";
 
-const sql = postgres("postgres://username:password@localhost:5432/db");
+const sql = postgres("postgres://cenk:luffy@localhost:5432/db");
 
 const app = express();
 const port = 3000;
@@ -17,10 +17,10 @@ app.put("/newToDo", async (req, res) => {
   const { toDoItem } = req.body;
 
   const list = await sql`
-  INSERT INTO todos
+  INSERT INTO todos (item)
   VALUES (${toDoItem})`;
 
-  return res.sendStatus(200);
+  return res.send(list).status(200);
 });
 
 app.listen(port, () => {
