@@ -23,6 +23,24 @@ app.put("/newToDo", async (req, res) => {
   return res.send(list).status(200);
 });
 
+app.delete("/deletedToDo", async (req, res) => {
+  const { todoId } = req.body;
+
+  const deletedToDo = await sql`
+  DELETE
+  FROM
+    todos
+  WHERE
+    todos.id = ${todoId}`;
+  console.log(deletedToDo);
+
+  if (deletedToDo.length === 0) {
+    return res.sendStatus(404);
+  }
+
+  return res.sendStatus(200);
+});
+
 app.listen(port, () => {
   return console.log(`Express is listening at http://localhost:${port}`);
 });
