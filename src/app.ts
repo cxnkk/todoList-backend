@@ -26,16 +26,23 @@ app.put("/newToDo", async (req, res) => {
 app.delete("/deletedToDo", async (req, res) => {
   const { todoId } = req.body;
 
-  const deletedToDo = await sql`
-  DELETE
+  const check = await sql`
+  SELECT
   FROM
     todos
   WHERE
     todos.id = ${todoId}`;
-  console.log(deletedToDo);
 
-  if (deletedToDo.length === 0) {
+  if (check.length === 0) {
     return res.sendStatus(404);
+  } else {
+    const deletedToDo = await sql`
+    DELETE
+    FROM
+      todos
+    WHERE
+      todos.id = ${todoId}`;
+    console.log(deletedToDo);
   }
 
   return res.sendStatus(200);
